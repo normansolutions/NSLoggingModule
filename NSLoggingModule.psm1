@@ -110,6 +110,7 @@ Function DeleteOldLogFiles {
     }
 }
 
+
 #endregion LOGGING FUNCTIONS
 
 #endregion LOGGING
