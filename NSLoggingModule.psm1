@@ -131,3 +131,8 @@ function DeleteOldLogFiles {
 
 # Export only the public function
 Export-ModuleMember -Function Log, LogAndConsole, DeleteOldLogFiles
+
+# Example usage
+# $p = './' (store log path as variable)
+# DeleteOldLogFiles 30 $p
+# LogAndConsole "HelloTwo" $p
