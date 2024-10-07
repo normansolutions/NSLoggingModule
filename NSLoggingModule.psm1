@@ -2,22 +2,18 @@
 
 #region LOGGING VARIABLES
 
-# Get the directory containing the script, with a fallback for interactive sessions
-$scriptPath = if ($MyInvocation.MyCommand.Path) {
-    Split-Path -Parent $MyInvocation.MyCommand.Path
+# Get the directory containing the script
+$scriptPath = if ($MyInvocation.ScriptName) {
+    Split-Path -Parent $MyInvocation.ScriptName
 }
 else {
-    $PSScriptRoot
+    (Get-Location).Path
 }
 
-# Ensure $scriptPath is not null or empty
-if (-not $scriptPath) {
-    $scriptPath = (Get-Location).Path
-}
 
 # Get the script name without the extension
-$scriptName = if ($MyInvocation.MyCommand.Path) {
-    [System.IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Path)
+$scriptName = if ($MyInvocation.ScriptName) {
+    [System.IO.Path]::GetFileNameWithoutExtension($MyInvocation.ScriptName)
 }
 else {
     "InteractiveSession"
@@ -117,3 +113,6 @@ Function DeleteOldLogFiles {
 #endregion LOGGING FUNCTIONS
 
 #endregion LOGGING
+
+# Export only the public function
+Export-ModuleMember -Function Log, LogAndConsole, DeleteOldLogFiles
