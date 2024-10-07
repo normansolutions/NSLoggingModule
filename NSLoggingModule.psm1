@@ -2,16 +2,6 @@
 
 #region LOGGING VARIABLES
 
-# Function to determine the default script path (if no path is passed)
-function Get-ScriptPath {
-    if ($MyInvocation.ScriptName) {
-        Split-Path -Parent $MyInvocation.ScriptName
-    }
-    else {
-        (Get-Location).Path  # Fallback to the current location for interactive sessions
-    }
-}
-
 # Get the script name without the extension
 $scriptName = if ($MyInvocation.ScriptName) {
     [System.IO.Path]::GetFileNameWithoutExtension($MyInvocation.ScriptName)
@@ -40,15 +30,17 @@ function Log {
     The message to log.
 
     .PARAMETER logPath
-    Optional. The path to the log directory. If not provided, the script path is used by default.
+    The path to log file.
  
     .EXAMPLE
     Log -message "This is a log entry."
     Log -message "This is a log entry." -logPath "C:\CustomLogs"
     #>
     param (
-        [string]$message,  # Message to log
-        [string]$logPath = $(Get-ScriptPath)  # Optional log directory path (default: script's path)
+        [Parameter(Mandatory = $true)]
+        [string]$message, # Message to log
+        [Parameter(Mandatory = $true)]
+        [string]$logPath # Log path
     )
     
     # Set the log folder path based on the provided or default path, with a "Logs" subfolder
@@ -81,16 +73,19 @@ function LogAndConsole {
     The message to log.
  
     .PARAMETER logPath
-    Optional. The path to the log directory. If not provided, the script path is used by default.
+    The path to log file.
  
     .EXAMPLE
-    LogAndConsole -message "This is a log entry."
-    LogAndConsole -message "This is a log entry." -logPath "C:\CustomLogs"
+    Log -message "This is a log entry."
+    Log -message "This is a log entry." -logPath "C:\CustomLogs"
     #>
     param (
-        [string]$message,  # Message to log
-        [string]$logPath = $(Get-ScriptPath)  # Optional log directory path (default: script's path)
+        [Parameter(Mandatory = $true)]
+        [string]$message, # Message to log
+        [Parameter(Mandatory = $true)]
+        [string]$logPath # Log path
     )
+
     Write-Host $message -ForegroundColor Green  # Log to console
     Log -message $message -logPath $logPath  # Log to file
 }
@@ -108,15 +103,16 @@ function DeleteOldLogFiles {
     The number of days after which log files will be deleted. Default is 90 days.
 
     .PARAMETER logPath
-    Optional. The path to the log directory. If not provided, the script path is used by default.
+    The path to log file.
  
     .EXAMPLE
     DeleteOldLogFiles -Days 30
     DeleteOldLogFiles -Days 30 -logPath "C:\CustomLogs"
     #>
     param (
-        [int]$Days = 90,  # Number of days after which log files will be deleted
-        [string]$logPath = $(Get-ScriptPath)  # Optional log directory path (default: script's path)
+        [int]$Days = 90, # Number of days after which log files will be deleted
+        [Parameter(Mandatory = $true)]
+        [string]$logPath # Log path
     )
 
     # Set the log folder path based on the provided or default path
@@ -131,7 +127,6 @@ function DeleteOldLogFiles {
         }
     }
 }
-
 
 #endregion LOGGING FUNCTIONS
 
