@@ -33,8 +33,7 @@ function Log {
     The path to log file.
  
     .EXAMPLE
-    Log -message "This is a log entry."
-    Log -message "This is a log entry." -logPath "C:\CustomLogs"
+    Log -message "This is a log entry." -logPath "./"
     #>
     param (
         [Parameter(Mandatory = $true)]
@@ -76,8 +75,7 @@ function LogAndConsole {
     The path to log file.
  
     .EXAMPLE
-    Log -message "This is a log entry."
-    Log -message "This is a log entry." -logPath "C:\CustomLogs"
+    Log -message "This is a log entry." -logPath "./"
     #>
     param (
         [Parameter(Mandatory = $true)]
@@ -106,8 +104,7 @@ function DeleteOldLogFiles {
     The path to log file.
  
     .EXAMPLE
-    DeleteOldLogFiles -Days 30
-    DeleteOldLogFiles -Days 30 -logPath "C:\CustomLogs"
+    DeleteOldLogFiles -Days 30 -logPath "./"
     #>
     param (
         [int]$Days = 90, # Number of days after which log files will be deleted
