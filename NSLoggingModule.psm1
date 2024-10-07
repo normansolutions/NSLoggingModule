@@ -117,7 +117,3 @@ Function DeleteOldLogFiles {
 #endregion LOGGING FUNCTIONS
 
 #endregion LOGGING
-
-# Example usage
-DeleteOldLogFiles 30
-LogAndConsole "HelloTwo"
