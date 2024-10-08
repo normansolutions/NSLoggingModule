@@ -12,7 +12,7 @@
 RootModule = 'NSLoggingModule.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.8'
+ModuleVersion = '0.1.1'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -24,7 +24,7 @@ GUID = '312b20ec-8781-4c23-b9e4-6fff4aed30ef'
 Author = 'Clive Norman'
 
 # Company or vendor of this module
-CompanyName = 'Unknown'
+CompanyName = 'Norman Solutions'
 
 # Copyright statement for this module
 Copyright = '(c) Clive Norman. All rights reserved.'
@@ -101,13 +101,13 @@ PrivateData = @{
         # LicenseUri = ''
 
         # A URL to the main website for this project.
-        # ProjectUri = ''
+        ProjectUri = 'https://normansolutions.co.uk/powershell-logging/'
 
         # A URL to an icon representing this module.
         # IconUri = ''
 
         # ReleaseNotes of this module
-        # ReleaseNotes = ''
+        ReleaseNotes = 'https://normansolutions.co.uk/powershell-logging/'
 
         # Prerelease string of this module
         # Prerelease = ''

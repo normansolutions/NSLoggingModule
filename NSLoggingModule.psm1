@@ -30,16 +30,14 @@ function Log {
     The message to log.
 
     .PARAMETER logPath
-    The path to log file.
+    The path to log file. Default is Temp.
  
     .EXAMPLE
     Log -message "This is a log entry." -logPath "./"
     #>
     param (
-        [Parameter(Mandatory = $true)]
         [string]$message, # Message to log
-        [Parameter(Mandatory = $true)]
-        [string]$logPath # Log path
+        [string]$logPath = "$env:Temp\" # Log path   
     )
     
     # Set the log folder path based on the provided or default path, with a "Logs" subfolder
@@ -72,16 +70,14 @@ function LogAndConsole {
     The message to log.
  
     .PARAMETER logPath
-    The path to log file.
+    The path to log file. Default is Temp.
  
     .EXAMPLE
     Log -message "This is a log entry." -logPath "./"
     #>
     param (
-        [Parameter(Mandatory = $true)]
         [string]$message, # Message to log
-        [Parameter(Mandatory = $true)]
-        [string]$logPath # Log path
+        [string]$logPath = "$env:Temp\" # Log path  
     )
 
     Write-Host $message -ForegroundColor Green  # Log to console
@@ -101,15 +97,14 @@ function DeleteOldLogFiles {
     The number of days after which log files will be deleted. Default is 90 days.
 
     .PARAMETER logPath
-    The path to log file.
+    The path to log file. Default is Temp
  
     .EXAMPLE
     DeleteOldLogFiles -Days 30 -logPath "./"
     #>
     param (
         [int]$Days = 90, # Number of days after which log files will be deleted
-        [Parameter(Mandatory = $true)]
-        [string]$logPath # Log path
+        [string]$logPath = "$env:Temp\" # Log path  
     )
 
     # Set the log folder path based on the provided or default path
@@ -133,6 +128,8 @@ function DeleteOldLogFiles {
 Export-ModuleMember -Function Log, LogAndConsole, DeleteOldLogFiles
 
 # Example usage
+#
 # $p = './' (store log path as variable)
-# DeleteOldLogFiles 30 $p
-# LogAndConsole "HelloTwo" $p
+# DeleteOldLogFiles -days 30 -logpath $p (deletes files over 30 days in variable path)
+# LogAndConsole "HelloTwo" $p (logs to variable path)
+# Log "HelloTemp" (logs to default Temp directory)
