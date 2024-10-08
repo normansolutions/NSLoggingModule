@@ -1,19 +1,7 @@
 #region LOGGING
 
-#region LOGGING VARIABLES
-
-# Get the script name without the extension
-$scriptName = if ($MyInvocation.ScriptName) {
-    [System.IO.Path]::GetFileNameWithoutExtension($MyInvocation.ScriptName)
-}
-else {
-    "InteractiveSession"
-}
-
 # Get the computer name
 $computerName = $Env:COMPUTERNAME
-
-#endregion LOGGING VARIABLES
 
 #region LOGGING FUNCTIONS
 
@@ -31,13 +19,17 @@ function Log {
 
     .PARAMETER logPath
     The path to log file. Default is Temp.
+	
+	.PARAMETER scriptName
+    The name of the script. Default is -
  
     .EXAMPLE
-    Log -message "This is a log entry." -logPath "./"
+    Log -message "This is a log entry." -logPath "./" -scriptName "logfile"
     #>
     param (
         [string]$message, # Message to log
-        [string]$logPath = "$env:Temp\" # Log path   
+        [string]$logPath = "$env:Temp\", # Log path   
+        [string]$scriptName = "-" # File path  
     )
     
     # Set the log folder path based on the provided or default path, with a "Logs" subfolder
@@ -71,17 +63,21 @@ function LogAndConsole {
  
     .PARAMETER logPath
     The path to log file. Default is Temp.
+
+	.PARAMETER scriptName
+    The name of the script. Default is -
  
     .EXAMPLE
-    Log -message "This is a log entry." -logPath "./"
+    Log -message "This is a log entry." -logPath "./" -scriptName "logfile"
     #>
     param (
         [string]$message, # Message to log
-        [string]$logPath = "$env:Temp\" # Log path  
+        [string]$logPath = "$env:Temp\", # Log path 
+        [string]$scriptName = "-" # File path
     )
 
     Write-Host $message -ForegroundColor Green  # Log to console
-    Log -message $message -logPath $logPath  # Log to file
+    Log -message $message -logPath $logPath -scriptName $scriptName # Log to file
 }
 
 # Function to delete old log files
@@ -130,6 +126,7 @@ Export-ModuleMember -Function Log, LogAndConsole, DeleteOldLogFiles
 # Example usage
 #
 # $p = './' (store log path as variable)
-# DeleteOldLogFiles -days 30 -logpath $p (deletes files over 30 days in variable path)
-# LogAndConsole "HelloTwo" $p (logs to variable path)
-# Log "HelloTemp" (logs to default Temp directory)
+# $s = "LogFileName" (store file name as variable)
+# DeleteOldLogFiles -days 30 -logpath $p -scriptName $s (named parameters example)
+# LogAndConsole "HelloTwo" $p (positional parameters example)
+# Log "HelloTemp" (default file and path example)
