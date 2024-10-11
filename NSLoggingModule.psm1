@@ -73,7 +73,7 @@ function LogAndConsole {
     param (
         [string]$message, # Message to log
         [string]$logPath = "$env:Temp\", # Log path 
-        [string]$scriptName = "-" # File path
+        [string]$scriptName = "-" # File name
     )
 
     Write-Host $message -ForegroundColor Green  # Log to console
@@ -100,7 +100,8 @@ function DeleteOldLogFiles {
     #>
     param (
         [int]$Days = 90, # Number of days after which log files will be deleted
-        [string]$logPath = "$env:Temp\" # Log path  
+        [string]$logPath = "$env:Temp\", # Log path
+        [string]$scriptName = "-" # File name
     )
 
     # Set the log folder path based on the provided or default path
@@ -110,7 +111,7 @@ function DeleteOldLogFiles {
     foreach ($file in $logFiles) {
         if ($file.LastWriteTime -le (Get-Date).AddDays(-$Days)) {
             # Delete log files older than the specified number of days
-            LogAndConsole -message "[+] Deleting old log file $file..." -logPath $logPath
+            LogAndConsole -message "[+] Deleting old log file $file..." -logPath $logPath -scriptName $scriptName
             Remove-Item -Path $file.FullName  # Remove the old log file
         }
     }
